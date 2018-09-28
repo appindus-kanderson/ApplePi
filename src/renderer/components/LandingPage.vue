@@ -12,7 +12,9 @@
     components: { SystemInformation },
     data () {
       return {
-        display: '<h2>Disaply from vue</h2>'
+        display: '<h2><em>Welcome to R&D</em></h2>',
+        pingFrequeny: this.$PING_FREQUENCY,
+        apiUrl: this.$API_URL
       }
     },
     methods: {
@@ -24,8 +26,10 @@
       }
     },
     mounted: function () {
-      console.dir(this.$API_URL)
-      console.log('seting invterval...')
+      let msg = `
+      <p>Mounted...<p/>
+      <p>Pinging ${this.apiUrl} every ${this.pingFrequeny / 1000} seconds...`
+      this.display = msg
       setInterval(() => {
         this.getDisplay()
         .then(result => {
@@ -33,10 +37,9 @@
           this.display = result.data
         })
         .catch(error => {
-          console.log('error')
-          console.log(error)
+          this.display = `<p>An error has occured...</p><p>${error}</p>`
         })
-      }, 5000)
+      }, this.pingFrequeny)
     }
   }
 </script>
