@@ -11,9 +11,9 @@
     name: 'landing-page',
     components: { SystemInformation },
     data () {
-       return {
+      return {
         display: '<h2>Disaply from vue</h2>'
-      } 
+      }
     },
     methods: {
       open (link) {
@@ -28,15 +28,15 @@
       console.log('seting invterval...')
       setInterval(() => {
         this.getDisplay()
-          .then(result => {
-            console.log('result')
-            this.display = result.data
-          })
-          .catch(error => {
-            console.log('error')
-            console.log(error)
-          })
-        }, 5000)
+        .then(result => {
+          console.log('result')
+          this.display = result.data
+        })
+        .catch(error => {
+          console.log('error')
+          console.log(error)
+        })
+      }, 5000)
     }
   }
 </script>
