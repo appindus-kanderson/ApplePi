@@ -1,47 +1,42 @@
 <template>
-  <div id="wrapper">
-    <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
-    <main>
-      <div class="left-side">
-        <span class="title">
-          Apple Pi!
-        </span>
-        <system-information></system-information>
-      </div>
-
-      <div class="right-side">
-        <div class="doc">
-          <div class="title">Getting Started</div>
-          <p>
-            electron-vue comes packed with detailed documentation that covers everything from
-            internal configurations, using the project structure, building your application,
-            and so much more.
-          </p>
-          <button @click="open('https://simulatedgreg.gitbooks.io/electron-vue/content/')">Read the Docs</button><br><br>
-        </div>
-        <div class="doc">
-          <div class="title alt">Other Documentation</div>
-          <button class="alt" @click="test('https://electron.atom.io/docs/')">Electron</button>
-          <button class="alt" @click="open('https://vuejs.org/v2/guide/')">Vue.js</button>
-        </div>
-      </div>
-    </main>
+  <div id="wrapper" v-html="display">
   </div>
 </template>
 
 <script>
   import SystemInformation from './LandingPage/SystemInformation'
+  import axios from 'axios'
 
   export default {
     name: 'landing-page',
     components: { SystemInformation },
+    data () {
+       return {
+        display: '<h2>Disaply from vue</h2>'
+      } 
+    },
     methods: {
       open (link) {
         this.$electron.shell.openExternal(link)
       },
-      test () {
-        alert('clicked!')
+      getDisplay () {
+        return axios.get(`${this.$API_URL}/display`)
       }
+    },
+    mounted: function () {
+      console.dir(this.$API_URL)
+      console.log('seting invterval...')
+      setInterval(() => {
+        this.getDisplay()
+          .then(result => {
+            console.log('result')
+            this.display = result.data
+          })
+          .catch(error => {
+            console.log('error')
+            console.log(error)
+          })
+        }, 5000)
     }
   }
 </script>
@@ -65,7 +60,7 @@
         rgba(229, 229, 229, .9) 100%
       );
     height: 100vh;
-    padding: 60px 80px;
+    padding: 0;
     width: 100vw;
   }
 

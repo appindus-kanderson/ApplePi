@@ -2,6 +2,8 @@
 
 import { app, BrowserWindow } from 'electron'
 
+console.dir(process.env)
+
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -25,7 +27,7 @@ const electronConfig = {
   URL_LAUNCHER_HEIGHT: parseInt(process.env.URL_LAUNCHER_HEIGHT || 1080, 10),
   URL_LAUNCHER_TITLE: process.env.URL_LAUNCHER_TITLE || 'RESIN.IO',
   URL_LAUNCHER_URL: process.env.URL_LAUNCHER_URL || winURL,
-  URL_LAUNCHER_ZOOM: parseFloat(process.env.URL_LAUNCHER_ZOOM || 1.0)
+  URL_LAUNCHER_ZOOM: parseFloat(process.env.URL_LAUNCHER_ZOOM || 1.0),
 }
 
 // enable touch events if your device supports them
