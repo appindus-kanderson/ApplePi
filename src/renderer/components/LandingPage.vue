@@ -6,7 +6,7 @@
 <script>
   import SystemInformation from './LandingPage/SystemInformation'
   import axios from 'axios'
-  // import { setInterval } from 'timers'
+  import { DateTime } from 'luxon'
 
   export default {
     name: 'landing-page',
@@ -27,20 +27,14 @@
         return axios.get(`${this.$API_URL}/display`)
       },
       getDateTime () {
-        let d = new Date()
-        let hr = d.getHours('en-US', { timeZone: 'America/New_York' })
-        let min = d.getMinutes('en-US', { timeZone: 'America/New_York' })
-        if (min < 10) {
-          min = `0` + min
-        }
-        if (hr > 12) {
-          hr -= 12
-        }
-        let niceDate = d.toDateString()
+        let utcDatetime = DateTime.utc().toISO()
+        let time = DateTime.fromISO(utcDatetime).toFormat('t')
+        let day = DateTime.fromISO(utcDatetime).toFormat('ccc')
+        let date = DateTime.fromISO(utcDatetime).toFormat('DD')
         return `
           <div class="text-center date-time">
-            <h1>${hr}:${min}</h1>
-            <h3>${niceDate}</h3>
+            <h1>${time}</h1>
+            <h3>${day} ${date}</h3>
           <div>`
       }
     },
