@@ -6,6 +6,7 @@
 <script>
   import SystemInformation from './LandingPage/SystemInformation'
   import axios from 'axios'
+  // import { setInterval } from 'timers'
 
   export default {
     name: 'landing-page',
@@ -22,13 +23,31 @@
         this.$electron.shell.openExternal(link)
       },
       getDisplay () {
+        console.log(`getting display`)
         return axios.get(`${this.$API_URL}/display`)
+      },
+      getDateTime () {
+        let d = new Date()
+        let hr = d.getHours()
+        let min = d.getMinutes()
+        if (min < 10) {
+          min = `0` + min
+        }
+        if (hr > 12) {
+          hr -= 12
+        }
+        let niceDate = d.toDateString()
+        return `
+          <div class="text-center date-time">
+            <h1>${hr}:${min}</h1>
+            <h3>${niceDate}</h3>
+          <div>`
       }
     },
     mounted: function () {
       let msg = `
-      <p>Mounted...<p/>
-      <p>Pinging ${this.apiUrl} every ${this.pingFrequeny / 1000} seconds...`
+      <p>Mounted...</p>
+      <p>Pinging ${this.apiUrl} every ${this.pingFrequeny / 1000} seconds...</p>`
       this.display = msg
       setInterval(() => {
         this.getDisplay()
@@ -37,7 +56,8 @@
           this.display = result.data
         })
         .catch(error => {
-          this.display = `<p>An error has occured...</p><p>${error}</p>`
+          console.log(error)
+          this.display = this.getDateTime()
         })
       }, this.pingFrequeny)
     }
@@ -54,6 +74,15 @@
   }
 
   body { font-family: 'Source Sans Pro', sans-serif; }
+
+  .date-time {
+    margin-top: 100px;
+    font-size: 4rem;
+  }
+
+  .text-center {
+    text-align: center;
+  }
 
   #wrapper {
     background:
