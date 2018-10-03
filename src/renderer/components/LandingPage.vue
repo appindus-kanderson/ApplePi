@@ -28,9 +28,9 @@
       },
       getDateTime () {
         let utcDatetime = DateTime.utc().toISO()
-        let time = DateTime.fromISO(utcDatetime).toFormat('t')
-        let day = DateTime.fromISO(utcDatetime).toFormat('ccc')
-        let date = DateTime.fromISO(utcDatetime).toFormat('DD')
+        let time = DateTime.fromISO(utcDatetime, { zone: 'America/New_York' }).toFormat('t')
+        let day = DateTime.fromISO(utcDatetime, { zone: 'America/New_York' }).toFormat('ccc')
+        let date = DateTime.fromISO(utcDatetime, { zone: 'America/New_York' }).toFormat('DD')
         return `
           <div class="text-center date-time">
             <h1>${time}</h1>
