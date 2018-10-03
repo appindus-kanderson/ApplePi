@@ -28,8 +28,8 @@
       },
       getDateTime () {
         let d = new Date()
-        let hr = d.getHours()
-        let min = d.getMinutes()
+        let hr = d.getHours('en-US', { timeZone: 'America/New_York' })
+        let min = d.getMinutes('en-US', { timeZone: 'America/New_York' })
         if (min < 10) {
           min = `0` + min
         }
