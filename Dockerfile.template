@@ -45,7 +45,7 @@ COPY ./yarn.lock ./
 RUN yarn install --unsafe-perm
 
 COPY ./.eslintrc.js ./
-COPY ./.electron-vue ./.electron-vue
+# COPY ./.electron-vue ./.electron-vue
 COPY ./src ./src
 COPY ./static ./static
 
