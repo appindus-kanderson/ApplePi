@@ -35,6 +35,7 @@
           <div class="text-center date-time">
             <h1>${time}</h1>
             <h3>${day} ${date}</h3>
+            <p>test</p>
           <div>`
       }
     },
